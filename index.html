@@ -4,93 +4,396 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inhabitr Ocean Sailing Schedules — Hapag-Lloyd &amp; ONE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --midnight: #052439;
-  --teal: #015F74;
-  --seafoam: #45DABE;
-  --indigo: #566AE5;
-  --terrain: #F4F2EF;
-  --white: #FFFFFF;
-  --mb1: #E8ECF1;
-  --mb2: #C5D2E7;
-  --text: #1A2B3D;
+  --tinted: #07304c;
+  --teal: #015f74;
+  --sky: #5eb6f1;
+  --seafoam: #45dabe;
+  --indigo: #566ae5;
+  --terrain: #f4f2f0;
+  --frost: #e2f2fc;
+  --white: #ffffff;
+  --black: #000000;
   --hapag-color: #FF6600;
-  --one-color: #FF1A6C;
+  --one-color: #E4006E;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--terrain); color: var(--text); }
-.header { background: var(--midnight); color: var(--white); padding: 40px 56px 32px; }
-.header-inner { max-width: 1400px; margin: 0 auto; }
-.header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-.header .subtitle { font-size: 15px; opacity: 0.7; font-weight: 400; }
-.meta-bar { background: var(--midnight); border-top: 1px solid rgba(255,255,255,0.08); padding: 14px 56px; display: flex; gap: 32px; flex-wrap: wrap; }
-.meta-bar .chip { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 6px 16px; font-size: 13px; color: rgba(255,255,255,0.7); }
-.meta-bar .chip strong { color: var(--white); font-weight: 600; }
-.key-bar { background: var(--white); border-bottom: 1px solid var(--mb1); padding: 14px 56px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
-.key-bar .label { font-size: 12px; color: #7A8A9E; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--terrain);
+  color: var(--midnight);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Left accent stripe (brand signature) ── */
+.accent-stripe {
+  position: fixed;
+  left: 0; top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--teal) 0%, var(--seafoam) 50%, var(--indigo) 100%);
+  z-index: 100;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--midnight);
+  padding: 48px 64px 40px;
+  position: relative;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+.header h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+}
+.header .subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 400;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+.header-date {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Stats bar ── */
+.stats-bar {
+  background: var(--tinted);
+  padding: 16px 64px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--sky);
+}
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.stats-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ── Legend bar ── */
+.legend-bar {
+  background: var(--white);
+  border-bottom: 1px solid rgba(5,36,57,0.08);
+  padding: 14px 64px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.legend-label {
+  font-size: 11px;
+  color: rgba(5,36,57,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
 .badge.direct { background: var(--teal); color: var(--white); }
-.badge.transfer { background: var(--midnight); color: var(--white); border: 1px solid rgba(255,255,255,0.15); }
-.carrier-tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+.badge.transfer { background: var(--tinted); color: rgba(255,255,255,0.9); }
+.carrier-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
 .carrier-tag.hapag { background: var(--hapag-color); color: var(--white); }
 .carrier-tag.one { background: var(--one-color); color: var(--white); }
-.container { max-width: 1400px; margin: 0 auto; padding: 32px 56px 64px; }
-.section-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #7A8A9E; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid var(--mb1); }
-.section-title:first-child { margin-top: 0; }
-.lanes { display: grid; grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); gap: 24px; }
-.lane-card { background: var(--white); border: 1px solid var(--mb2); border-radius: 12px; box-shadow: 0 2px 10px rgba(5,36,57,0.07); overflow: hidden; transition: box-shadow 0.2s ease; }
-.lane-card:hover { box-shadow: 0 4px 20px rgba(5,36,57,0.12); }
-.lane-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 20px 16px; border-bottom: 1px solid var(--mb1); }
-.lane-title { display: flex; align-items: center; gap: 12px; }
-.lane-title .flag { font-size: 24px; }
-.lane-name { font-size: 17px; font-weight: 700; color: var(--text); }
-.locode { font-size: 12px; color: #7A8A9E; font-weight: 500; letter-spacing: 0.3px; }
-.atlas-link { font-size: 13px; color: var(--indigo); text-decoration: none; font-weight: 600; white-space: nowrap; }
-.atlas-link:hover { text-decoration: underline; }
-.pol-header { padding: 12px 20px 8px; font-size: 13px; font-weight: 600; color: var(--text); background: #F8F9FB; border-top: 1px solid var(--mb1); }
-.pol-header:first-of-type { border-top: none; }
+
+/* ── Container ── */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 64px 80px;
+}
+
+/* ── Section headings ── */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 48px 0 24px;
+}
+.section-heading:first-child { margin-top: 0; }
+.section-heading .number {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--sky);
+  opacity: 0.6;
+  font-style: italic;
+  min-width: 40px;
+}
+.section-heading h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--midnight);
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+}
+.section-heading-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), transparent);
+  border-radius: 2px;
+}
+
+/* ── Card grid ── */
+.lanes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(540px, 1fr));
+  gap: 20px;
+}
+
+/* ── Lane cards ── */
+.lane-card {
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(5,36,57,0.06), 0 6px 24px rgba(5,36,57,0.04);
+  border: 1px solid rgba(5,36,57,0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.lane-card:hover {
+  box-shadow: 0 2px 8px rgba(5,36,57,0.08), 0 12px 40px rgba(5,36,57,0.08);
+  transform: translateY(-1px);
+}
+
+.lane-header {
+  background: var(--midnight);
+  padding: 20px 24px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lane-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lane-title .flag { font-size: 28px; }
+.lane-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+.locode {
+  font-size: 12px;
+  color: var(--sky);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.atlas-link {
+  font-size: 12px;
+  color: var(--seafoam);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(69,218,190,0.25);
+  transition: all 0.15s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.atlas-link:hover {
+  background: rgba(69,218,190,0.1);
+  border-color: var(--seafoam);
+}
+
+/* ── Origin headers ── */
+.pol-header {
+  padding: 10px 24px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: var(--frost);
+  border-top: 1px solid rgba(5,36,57,0.06);
+}
+
+/* ── Tables ── */
 table { width: 100%; border-collapse: collapse; }
-thead th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #7A8A9E; font-weight: 600; padding: 8px 8px; text-align: left; border-bottom: 1px solid var(--mb1); }
-thead th:first-child { padding-left: 20px; }
-thead th:last-child { padding-right: 20px; }
-tbody td { padding: 10px 8px; font-size: 13px; border-bottom: 1px solid #F0F2F5; vertical-align: middle; }
-tbody td:first-child { padding-left: 20px; }
-tbody td:last-child { padding-right: 20px; }
+thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(5,36,57,0.35);
+  font-weight: 700;
+  padding: 8px 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(5,36,57,0.06);
+}
+thead th:first-child { padding-left: 24px; }
+thead th:last-child { padding-right: 24px; }
+tbody td {
+  padding: 10px 8px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(5,36,57,0.04);
+  vertical-align: middle;
+}
+tbody td:first-child { padding-left: 24px; }
+tbody td:last-child { padding-right: 24px; }
 tbody tr:last-child td { border-bottom: none; }
-td.rank { font-weight: 700; color: #7A8A9E; font-size: 12px; width: 26px; }
-td.svc { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; font-weight: 600; color: var(--text); }
-td.dep { font-size: 12px; font-weight: 600; color: var(--indigo); width: 44px; text-align: center; }
-td.days { font-size: 18px; font-weight: 800; color: var(--midnight); width: 44px; text-align: center; }
+tbody tr:hover { background: rgba(94,182,241,0.03); }
+
+td.rank {
+  font-weight: 800;
+  color: rgba(5,36,57,0.2);
+  font-size: 13px;
+  width: 28px;
+}
+td.svc {
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--midnight);
+}
+td.dep {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--indigo);
+  width: 44px;
+  text-align: center;
+}
+td.days {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--midnight);
+  width: 48px;
+  text-align: center;
+}
 td.type { width: 78px; }
-td.via { font-size: 12px; color: #5A6B80; }
-.via-tag { display: inline-block; background: #EDF0F5; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 600; color: #5A6B80; margin: 1px 2px; }
-td.carrier-col { width: 58px; }
-.no-routes { padding: 16px 20px; font-size: 13px; color: #7A8A9E; font-style: italic; }
-.footer { background: var(--midnight); color: rgba(255,255,255,0.5); padding: 24px 56px; font-size: 12px; text-align: center; }
-.footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
-@media (max-width: 1100px) { .lanes { grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); } .container, .header, .meta-bar, .key-bar, .footer { padding-left: 32px; padding-right: 32px; } }
-@media (max-width: 760px) { .lanes { grid-template-columns: 1fr; } .container, .header, .meta-bar, .key-bar, .footer { padding-left: 20px; padding-right: 20px; } }
+td.via { font-size: 12px; color: rgba(5,36,57,0.5); }
+.via-tag {
+  display: inline-block;
+  background: var(--frost);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.3px;
+}
+td.carrier-col { width: 62px; }
+
+/* ── Footer ── */
+.footer {
+  background: var(--midnight);
+  color: rgba(255,255,255,0.35);
+  padding: 32px 64px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.6;
+}
+.footer a {
+  color: var(--seafoam);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer a:hover { text-decoration: underline; }
+.footer-brand {
+  font-weight: 800;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .lanes { grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); }
+  .container, .header, .stats-bar, .legend-bar, .footer { padding-left: 32px; padding-right: 32px; }
+}
+@media (max-width: 760px) {
+  .lanes { grid-template-columns: 1fr; }
+  .container, .header, .stats-bar, .legend-bar, .footer { padding-left: 20px; padding-right: 20px; }
+  .header h1 { font-size: 26px; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .stats-bar { gap: 20px; }
+  .stat-num { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
+<div class="accent-stripe"></div>
+
 <div class="header">
   <div class="header-inner">
-    <h1>Inhabitr Ocean Sailing Schedules</h1>
-    <div class="subtitle">Hapag-Lloyd &amp; ONE — Top services by transit time from Flexport Atlas</div>
+    <div>
+      <h1>Inhabitr Ocean<br>Sailing Schedules</h1>
+      <div class="subtitle">Top services by transit time from Flexport Atlas<br>Hapag-Lloyd &amp; Ocean Network Express (ONE)</div>
+    </div>
+    <div class="header-date">April 2026</div>
   </div>
 </div>
 
-<div class="meta-bar">
-  <div class="chip"><strong>2</strong> Origins</div>
-  <div class="chip"><strong>9</strong> Ocean Destinations</div>
-  <div class="chip"><strong>2</strong> Carriers</div>
-  <div class="chip">Source: <strong>Flexport Atlas</strong> &middot; April 2026</div>
+<div class="stats-bar">
+  <div class="stat"><span class="stat-num">2</span><span class="stat-label">Origins</span></div>
+  <div class="stats-divider"></div>
+  <div class="stat"><span class="stat-num">9</span><span class="stat-label">Destinations</span></div>
+  <div class="stats-divider"></div>
+  <div class="stat"><span class="stat-num">2</span><span class="stat-label">Carriers</span></div>
 </div>
 
-<div class="key-bar">
-  <span class="label">Legend:</span>
+<div class="legend-bar">
+  <span class="legend-label">Legend</span>
   <span class="badge direct">Direct</span>
   <span class="badge transfer">Transfer</span>
   <span class="carrier-tag hapag">Hapag-Lloyd</span>
@@ -100,34 +403,38 @@ td.carrier-col { width: 58px; }
 <div class="container">
 
 <!-- ========== US WEST COAST ========== -->
-<div class="section-title">US West Coast</div>
+<div class="section-heading">
+  <span class="number">01</span>
+  <h2>US West Coast</h2>
+  <div class="section-heading-line"></div>
+</div>
 <div class="lanes">
 
 <!-- LA / Long Beach -->
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Los Angeles / Long Beach</div><div class="locode">USLAX / USLGB</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USLAX" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USLAX" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">MP2/MS2</td><td class="dep">Fri</td><td class="days">21</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">706/WC1</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2</td><td class="dep">Fri</td><td class="days">21</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">706/WC1</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">708/WC2</td><td class="dep">Mon</td><td class="days">15</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">PS6</td><td class="dep">Wed</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">MP2/MS2</td><td class="dep">Tue</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">708/WC2</td><td class="dep">Mon</td><td class="days">15</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PS6</td><td class="dep">Wed</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">MP2/MS2</td><td class="dep">Tue</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -136,26 +443,26 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Tacoma / Seattle</div><div class="locode">USTIW / USSEA</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSEA" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSEA" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">MP2/MS2 → PN3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">23</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; PN3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">23</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">PN3</td><td class="dep">Fri</td><td class="days">15</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EC2 → FP2</td><td class="dep">Thu</td><td class="days">16</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">705/WC4</td><td class="dep">Thu</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">PN3</td><td class="dep">Fri</td><td class="days">15</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EC2 &rarr; FP2</td><td class="dep">Thu</td><td class="days">16</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">705/WC4</td><td class="dep">Thu</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -164,26 +471,26 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇨🇦</span>
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
       <div><div class="lane-name">Vancouver</div><div class="locode">CAVAN</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAVAN" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAVAN" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">28</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">706/WC1 → 701/WC3</td><td class="dep">Fri</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">28</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">PS6 → PN1</td><td class="dep">Wed</td><td class="days">20</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">PN3 → FP2</td><td class="dep">Fri</td><td class="days">20</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">705/WC4</td><td class="dep">Thu</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">PS6 &rarr; PN1</td><td class="dep">Wed</td><td class="days">20</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PN3 &rarr; FP2</td><td class="dep">Fri</td><td class="days">20</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">705/WC4</td><td class="dep">Thu</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -192,25 +499,25 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇨🇦</span>
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
       <div><div class="lane-name">Prince Rupert</div><div class="locode">CAPRR</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAPRR" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAPRR" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">706/WC1 → 701/WC3</td><td class="dep">Fri</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">VCS → WC3</td><td class="dep">—</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">VCS &rarr; WC3</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">701/WC3</td><td class="dep">Wed</td><td class="days">19</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">712/US2 → 701/WC3</td><td class="dep">Thu</td><td class="days">21</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">701/WC3</td><td class="dep">Wed</td><td class="days">19</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">712/US2 &rarr; 701/WC3</td><td class="dep">Thu</td><td class="days">21</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -218,34 +525,38 @@ td.carrier-col { width: 58px; }
 </div><!-- /lanes -->
 
 <!-- ========== US EAST COAST & GULF ========== -->
-<div class="section-title">US East Coast &amp; Gulf</div>
+<div class="section-heading">
+  <span class="number">02</span>
+  <h2>US East Coast &amp; Gulf</h2>
+  <div class="section-heading-line"></div>
+</div>
 <div class="lanes">
 
 <!-- New York -->
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">New York</div><div class="locode">USNYC</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USNYC" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USNYC" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">EC3 → IAX/WIN</td><td class="dep">Sun</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">LKCMB</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">716/US4</td><td class="dep">Sun</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC3</td><td class="dep">Sun</td><td class="days">38</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">EC3 &rarr; IAX/WIN</td><td class="dep">Sun</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">LKCMB</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">716/US4</td><td class="dep">Sun</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC3</td><td class="dep">Sun</td><td class="days">38</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">712/US2</td><td class="dep">Thu</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EC2 → EC1</td><td class="dep">Thu</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC1</td><td class="dep">Wed</td><td class="days">37</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">712/US2</td><td class="dep">Thu</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EC2 &rarr; EC1</td><td class="dep">Thu</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC1</td><td class="dep">Wed</td><td class="days">37</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -254,27 +565,27 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Charleston</div><div class="locode">USCHS</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USCHS" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USCHS" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">716/US4 → AA7</td><td class="dep">Sun</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">42</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">43</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">716/US4 &rarr; AA7</td><td class="dep">Sun</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">42</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">43</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">711/US1</td><td class="dep">Tue</td><td class="days">29</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EC2</td><td class="dep">Thu</td><td class="days">34</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC2 → IAX/WIN</td><td class="dep">Thu</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">711/US1</td><td class="dep">Tue</td><td class="days">29</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EC2</td><td class="dep">Thu</td><td class="days">34</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2 &rarr; IAX/WIN</td><td class="dep">Thu</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -283,26 +594,26 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Savannah</div><div class="locode">USSAV</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSAV" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSAV" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">39</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">716/US4 → AL7</td><td class="dep">Sun</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">44</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">39</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">716/US4 &rarr; AL7</td><td class="dep">Sun</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">44</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">EC2</td><td class="dep">Thu</td><td class="days">30</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">711/US1</td><td class="dep">Tue</td><td class="days">31</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">EC2</td><td class="dep">Thu</td><td class="days">30</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">711/US1</td><td class="dep">Tue</td><td class="days">31</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -311,25 +622,25 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Houston</div><div class="locode">USHOU</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USHOU" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USHOU" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">MP2/MS2 → EC4</td><td class="dep">Fri</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">706/WC1 → 715/US3</td><td class="dep">Fri</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLAX</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; EC4</td><td class="dep">Fri</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">706/WC1 &rarr; 715/US3</td><td class="dep">Fri</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLAX</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">EC4</td><td class="dep">Mon</td><td class="days">27</td><td><span class="badge direct">Direct</span></td><td class="via">—</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">711/US1 → 715/US3</td><td class="dep">Tue</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">EC4</td><td class="dep">Mon</td><td class="days">27</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">711/US1 &rarr; 715/US3</td><td class="dep">Tue</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -338,26 +649,26 @@ td.carrier-col { width: 58px; }
 <div class="lane-card">
   <div class="lane-header">
     <div class="lane-title">
-      <span class="flag">🇺🇸</span>
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
       <div><div class="lane-name">Miami</div><div class="locode">USMIA</div></div>
     </div>
-    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USMIA" target="_blank">Atlas ↗</a>
+    <a class="atlas-link" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USMIA" target="_blank">Atlas &#x2197;</a>
   </div>
-  <div class="pol-header">🇻🇳 Cai Mep (VNCMT)</div>
+  <div class="pol-header">&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">US4 → AL6</td><td class="dep">Sun</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EC2 → AL6</td><td class="dep">Tue</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">US4 &rarr; AL6</td><td class="dep">Sun</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EC2 &rarr; AL6</td><td class="dep">Tue</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
-  <div class="pol-header">🇨🇳 Shanghai (CNSHG)</div>
+  <div class="pol-header">&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
     <tbody>
-      <tr><td class="rank">1</td><td class="svc">712/US2 → AM1/FLS</td><td class="dep">Thu</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EC4 → AN2</td><td class="dep">Mon</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USHOU</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC2 → AL6</td><td class="dep">Thu</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">1</td><td class="svc">712/US2 &rarr; AM1/FLS</td><td class="dep">Thu</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EC4 &rarr; AN2</td><td class="dep">Mon</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USHOU</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2 &rarr; AL6</td><td class="dep">Thu</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -367,7 +678,9 @@ td.carrier-col { width: 58px; }
 </div><!-- /container -->
 
 <div class="footer">
-  Compiled from <a href="https://atlas.flexport.com" target="_blank">Flexport Atlas</a> &middot; April 2026 &middot; Transit times are carrier-published estimates &middot; Departure days are approximate weekly schedules
+  <span class="footer-brand">flexport</span>
+  Compiled from <a href="https://atlas.flexport.com" target="_blank">Flexport Atlas</a> &middot; April 2026<br>
+  Transit times are carrier-published estimates &middot; Departure days are approximate weekly schedules
 </div>
 
 </body>

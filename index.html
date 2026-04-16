@@ -428,6 +428,66 @@ td.carrier-col { width: 62px; }
   .section-heading h2 { font-size: 15px; }
   .footer { padding: 24px 16px; }
 }
+
+/* ── Tab bar ── */
+.tab-bar {
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 40px;
+  border-bottom: 2px solid rgba(5,36,57,0.08);
+  padding-bottom: 0;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  padding: 14px 22px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  transition: all 0.15s ease;
+  border-radius: 8px 8px 0 0;
+  color: rgba(5,36,57,0.5);
+  margin-bottom: -2px;
+}
+.tab-btn:hover {
+  background: rgba(94,182,241,0.05);
+  color: var(--midnight);
+}
+.tab-btn.active {
+  color: var(--midnight);
+  border-bottom: 3px solid var(--teal);
+  background: rgba(94,182,241,0.04);
+}
+.tab-flag { font-size: 22px; }
+.tab-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.tab-code {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal);
+  background: var(--frost);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+.tab-btn.active .tab-code { background: var(--teal); color: var(--white); }
+.tab-panel { display: block; }
+.tab-panel[hidden] { display: none; }
+@media (max-width: 760px) {
+  .tab-bar { gap: 4px; margin: 20px 0 24px; }
+  .tab-btn { padding: 10px 12px; gap: 6px; }
+  .tab-name { font-size: 12px; }
+  .tab-flag { font-size: 16px; }
+  .tab-code { font-size: 9px; padding: 1px 5px; }
+}
+
 </style>
 </head>
 <body>
@@ -438,14 +498,14 @@ td.carrier-col { width: 62px; }
   <div class="header-inner">
     <div>
       <h1>Inhabitr Ocean<br>Sailing Schedules</h1>
-      <div class="subtitle">Top services by transit time from Flexport Atlas<br>Hapag-Lloyd, ONE, CMA CGM, MSC, Evergreen, Maersk &amp; Matson</div>
+      <div class="subtitle">Top services by transit time from Flexport Atlas &middot; HCMC, Cai Mep &amp; Shanghai origins<br>Hapag-Lloyd, ONE, CMA CGM, MSC, Evergreen, Maersk &amp; Matson</div>
     </div>
     <div class="header-date">April 2026</div>
   </div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><span class="stat-num">2</span><span class="stat-label">Origins</span></div>
+  <div class="stat"><span class="stat-num">3</span><span class="stat-label">Origins</span></div>
   <div class="stats-divider"></div>
   <div class="stat"><span class="stat-num">10</span><span class="stat-label">Destinations</span></div>
   <div class="stats-divider"></div>
@@ -467,10 +527,30 @@ td.carrier-col { width: 62px; }
 
 <div class="container">
 
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="hcm">
+    <span class="tab-flag">&#x1F1FB;&#x1F1F3;</span>
+    <span class="tab-name">Ho Chi Minh City</span>
+    <span class="tab-code">VNSGN</span>
+  </button>
+  <button class="tab-btn" data-tab="cmt">
+    <span class="tab-flag">&#x1F1FB;&#x1F1F3;</span>
+    <span class="tab-name">Cai Mep</span>
+    <span class="tab-code">VNCMT</span>
+  </button>
+  <button class="tab-btn" data-tab="sha">
+    <span class="tab-flag">&#x1F1E8;&#x1F1F3;</span>
+    <span class="tab-name">Shanghai</span>
+    <span class="tab-code">CNSHG</span>
+  </button>
+</div>
+
+
+<div class="tab-panel" id="panel-hcm">
 <!-- ========== US WEST COAST ========== -->
 <div class="section-heading">
   <span class="number">01</span>
-  <h2>US West Coast</h2>
+  <h2>US WEST COAST</h2>
   <div class="section-heading-line"></div>
 </div>
 <div class="lanes">
@@ -483,7 +563,271 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Los Angeles / Long Beach</div><div class="locode">USLAX / USLGB</div></div>
     </div>
   </div>
-  <!-- Cai Mep → LA: Hapag(22), ONE(21,22), Matson(20,24), Evergreen(21,22), MSC(25,25) sorted by transit -->
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USLAX" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MS2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">21</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">MP2/MS2</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">CP2/PVCS</td><td class="dep">&mdash;</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">706/WC1</td><td class="dep">Fri</td><td class="days">23</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">23</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; JAX</td><td class="dep">&mdash;</td><td class="days">23</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">EC2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">EMERALD &rarr; SENTOSA</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">9</td><td class="svc">EMERALD &rarr; SENTOSA</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Oakland -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Oakland</div><div class="locode">USOAK</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">PS7</td><td class="dep">&mdash;</td><td class="days">23</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">Columbus JAX</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag cma">CMA</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">HTW</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PE1</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">SENTOSA</td><td class="dep">&mdash;</td><td class="days">27</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Tacoma / Seattle -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Tacoma / Seattle</div><div class="locode">USTIW / USSEA</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USTIW" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; PN3</td><td class="dep">Fri</td><td class="days">23</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">24</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">27</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Vancouver -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
+      <div><div class="lane-name">Vancouver</div><div class="locode">CAVAN</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:CAVAN" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">PVCS/SCS &rarr; DAS/OPNW</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PVCS/SEA &rarr; OPNW/PNW1</td><td class="dep">&mdash;</td><td class="days">27</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">29</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">29</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">31</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Prince Rupert -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
+      <div><div class="lane-name">Prince Rupert</div><div class="locode">CAPRR</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:CAPRR" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MS2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">29</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">VCS &rarr; WC3</td><td class="dep">&mdash;</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAVAN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div><!-- /lanes -->
+
+<!-- ========== US EAST COAST & GULF ========== -->
+<div class="section-heading">
+  <span class="number">02</span>
+  <h2>US EAST COAST & GULF</h2>
+  <div class="section-heading-line"></div>
+</div>
+<div class="lanes">
+
+<!-- New York -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">New York</div><div class="locode">USNYC</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USNYC" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EC3 &rarr; IAX/WIN</td><td class="dep">Sun</td><td class="days">31</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">LKCMB</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">716/US4</td><td class="dep">Sun</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">AMERICA &rarr; AMERICA</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">SGSIN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC3</td><td class="dep">Sun</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAHAL</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Charleston -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Charleston</div><div class="locode">USCHS</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USCHS" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">37</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EMERALD &rarr; EMERALD</td><td class="dep">&mdash;</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">716/US4 &rarr; AA7</td><td class="dep">Sun</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">43</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">48</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">49</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Savannah -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Savannah</div><div class="locode">USSAV</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USSAV" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; INDUS</td><td class="dep">&mdash;</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">716/US4 &rarr; AL7</td><td class="dep">Sun</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNCMT</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">47</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Houston -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Houston</div><div class="locode">USHOU</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USHOU" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; EC4</td><td class="dep">Fri</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PVCS/SCS &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">PVCS/SEA &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">37</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 715/US3</td><td class="dep">Fri</td><td class="days">43</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLAX</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Miami -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Miami</div><div class="locode">USMIA</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Ho Chi Minh City (VNSGN)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNSGN/destinationoceanport:USMIA" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD &rarr; MEDGULF</td><td class="dep">&mdash;</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; EMPIRE</td><td class="dep">&mdash;</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">US4 &rarr; AL6</td><td class="dep">Sun</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">EC2 &rarr; AL6</td><td class="dep">Tue</td><td class="days">46</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC2 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">46</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">50</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SCS &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">58</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">PVCS/SEA &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">59</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div><!-- /lanes -->
+
+</div>
+
+<div class="tab-panel" id="panel-cmt" hidden>
+<!-- ========== US WEST COAST ========== -->
+<div class="section-heading">
+  <span class="number">01</span>
+  <h2>US WEST COAST</h2>
+  <div class="section-heading-line"></div>
+</div>
+<div class="lanes">
+
+<!-- LA / Long Beach -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Los Angeles / Long Beach</div><div class="locode">USLAX / USLGB</div></div>
+    </div>
+  </div>
   <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USLAX" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -499,7 +843,256 @@ td.carrier-col { width: 62px; }
       <tr><td class="rank">9</td><td class="svc">EMERALD &rarr; SENTOSA</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
     </tbody>
   </table>
-  <!-- Shanghai → LA: Hapag(15), ONE(17,17), CMA(10,11), Maersk(10,15), Evergreen(15,16), MSC(17,19), Matson(19,19) -->
+</div>
+
+
+<!-- Oakland -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Oakland</div><div class="locode">USOAK</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">PS7</td><td class="dep">&mdash;</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">Columbus JAX</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag cma">CMA</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">HTW</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PE1</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">SENTOSA</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Tacoma / Seattle -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Tacoma / Seattle</div><div class="locode">USTIW / USSEA</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSEA" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; PN3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">23</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Vancouver -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
+      <div><div class="lane-name">Vancouver</div><div class="locode">CAVAN</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAVAN" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">PVCS/SCS &rarr; DAS/OPNW</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PVCS/SEA &rarr; OPNW/PNW1</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">28</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">28</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Prince Rupert -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1E8;&#x1F1E6;</span>
+      <div><div class="lane-name">Prince Rupert</div><div class="locode">CAPRR</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAPRR" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MS2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">28</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">VCS &rarr; WC3</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAVAN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div><!-- /lanes -->
+
+<!-- ========== US EAST COAST & GULF ========== -->
+<div class="section-heading">
+  <span class="number">02</span>
+  <h2>US EAST COAST & GULF</h2>
+  <div class="section-heading-line"></div>
+</div>
+<div class="lanes">
+
+<!-- New York -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">New York</div><div class="locode">USNYC</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USNYC" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EC3 &rarr; IAX/WIN</td><td class="dep">Sun</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">LKCMB</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA</td><td class="dep">&mdash;</td><td class="days">32</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">716/US4</td><td class="dep">Sun</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">AMERICA &rarr; AMERICA</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">SGSIN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC3</td><td class="dep">Sun</td><td class="days">38</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAHAL</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Charleston -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Charleston</div><div class="locode">USCHS</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USCHS" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">EMERALD &rarr; EMERALD</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">716/US4 &rarr; AA7</td><td class="dep">Sun</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">42</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">43</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">47</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">48</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Savannah -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Savannah</div><div class="locode">USSAV</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSAV" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">37</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; INDUS</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">39</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">716/US4 &rarr; AL7</td><td class="dep">Sun</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">44</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">46</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Houston -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Houston</div><div class="locode">USHOU</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USHOU" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; EC4</td><td class="dep">Fri</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PVCS/SCS &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">PVCS/SEA &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 715/US3</td><td class="dep">Fri</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLAX</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Miami -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Miami</div><div class="locode">USMIA</div></div>
+    </div>
+  </div>
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USMIA" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EMERALD &rarr; MEDGULF</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; EMPIRE</td><td class="dep">&mdash;</td><td class="days">43</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">US4 &rarr; AL6</td><td class="dep">Sun</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">EC2 &rarr; AL6</td><td class="dep">Tue</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">EC2 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">49</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">PVCS/SCS &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">57</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">8</td><td class="svc">PVCS/SEA &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">58</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+</div><!-- /lanes -->
+
+</div>
+
+<div class="tab-panel" id="panel-sha" hidden>
+<!-- ========== US WEST COAST ========== -->
+<div class="section-heading">
+  <span class="number">01</span>
+  <h2>US WEST COAST</h2>
+  <div class="section-heading-line"></div>
+</div>
+<div class="lanes">
+
+<!-- LA / Long Beach -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Los Angeles / Long Beach</div><div class="locode">USLAX / USLGB</div></div>
+    </div>
+  </div>
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USLAX" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -521,6 +1114,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Oakland -->
 <div class="lane-card">
   <div class="lane-header">
@@ -529,20 +1123,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Oakland</div><div class="locode">USOAK</div></div>
     </div>
   </div>
-  <!-- Cai Mep → OAK: ONE(22,24), CMA(24), Evergreen(24,24), MSC(26) sorted by transit -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">PS7</td><td class="dep">&mdash;</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">Columbus JAX</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag cma">CMA</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">HTW</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">PE1</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">SENTOSA</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → OAK: CMA(12), Hapag(17), Maersk(17), Evergreen(17), MSC(19), ONE(19,21) sorted by transit -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -558,6 +1138,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Tacoma / Seattle -->
 <div class="lane-card">
   <div class="lane-header">
@@ -566,20 +1147,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Tacoma / Seattle</div><div class="locode">USTIW / USSEA</div></div>
     </div>
   </div>
-  <!-- Cai Mep → SEA: ONE(22,23), MSC(25,25), Evergreen(25,26) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSEA" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; PN3</td><td class="dep">Fri</td><td class="days">22</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">23</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; ANP/EPNW</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → SEA: ONE(15,16), Hapag(17), Evergreen(14,16), MSC(16,16), Maersk(17,17), Matson(19,19) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USSEA" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -599,6 +1166,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Vancouver -->
 <div class="lane-card">
   <div class="lane-header">
@@ -607,20 +1175,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Vancouver</div><div class="locode">CAVAN</div></div>
     </div>
   </div>
-  <!-- Cai Mep → VAN: ONE(28), Hapag(39), Evergreen(25,26), MSC(28,30) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAVAN" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">PVCS/SCS &rarr; DAS/OPNW</td><td class="dep">&mdash;</td><td class="days">25</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">PVCS/SEA &rarr; OPNW/PNW1</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">FP2</td><td class="dep">Sun</td><td class="days">28</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">28</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; GRIFFIN</td><td class="dep">&mdash;</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → VAN: ONE(20,20), Hapag(24), Evergreen(18,19), MSC(19,19), Matson(21,21), Maersk(23,24) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:CAVAN" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -640,6 +1194,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Prince Rupert -->
 <div class="lane-card">
   <div class="lane-header">
@@ -648,22 +1203,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Prince Rupert</div><div class="locode">CAPRR</div></div>
     </div>
   </div>
-  <!-- Cai Mep → PRR: Hapag(32,33), Matson(28,32), Evergreen(32,33), MSC(34,35) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:CAPRR" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">MS2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">28</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">706/WC1 &rarr; 701/WC3</td><td class="dep">Fri</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC2 &rarr; CEN</td><td class="dep">Thu</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">32</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">VCS &rarr; WC3</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; BOHAI/CEN</td><td class="dep">&mdash;</td><td class="days">33</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLGB</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">7</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAVAN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">8</td><td class="svc">GRIFFIN &rarr; CHINOOK</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → PRR: Hapag(19,21), Maersk(16,17), MSC(26,26), Matson(28,29), Evergreen(30,32) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:CAPRR" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -682,12 +1221,13 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 </div><!-- /lanes -->
 
 <!-- ========== US EAST COAST & GULF ========== -->
 <div class="section-heading">
   <span class="number">02</span>
-  <h2>US East Coast &amp; Gulf</h2>
+  <h2>US EAST COAST & GULF</h2>
   <div class="section-heading-line"></div>
 </div>
 <div class="lanes">
@@ -700,22 +1240,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">New York</div><div class="locode">USNYC</div></div>
     </div>
   </div>
-  <!-- Cai Mep → NYC: ONE(30,38), Hapag(33), MSC(32,35), Evergreen(39,40), Matson(41) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USNYC" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">EC3 &rarr; IAX/WIN</td><td class="dep">Sun</td><td class="days">30</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">LKCMB</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">AMERICA</td><td class="dep">&mdash;</td><td class="days">32</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">716/US4</td><td class="dep">Sun</td><td class="days">33</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">AMERICA &rarr; AMERICA</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">SGSIN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">EC3</td><td class="dep">Sun</td><td class="days">38</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">39</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CAHAL</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → NYC: Hapag(33), ONE(33,37), Evergreen(30,31), MSC(32,33), Maersk(33,33), Matson(40,40) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USNYC" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -735,6 +1259,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Charleston -->
 <div class="lane-card">
   <div class="lane-header">
@@ -743,21 +1268,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Charleston</div><div class="locode">USCHS</div></div>
     </div>
   </div>
-  <!-- Cai Mep → CHS: Hapag(41,42), ONE(43), MSC(36,38), Evergreen(47,48) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USCHS" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">EMERALD &rarr; EMERALD</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">VNHPH</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">716/US4 &rarr; AA7</td><td class="dep">Sun</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">42</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">43</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">PVCS/SCS &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">47</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">7</td><td class="svc">PVCS/SEA &rarr; AWE4/ECX1</td><td class="dep">&mdash;</td><td class="days">48</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → CHS: Hapag(29), ONE(34,35), Maersk(29,31), Evergreen(33,34), MSC(34,36), Matson(41,41) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USCHS" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -777,6 +1287,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Savannah -->
 <div class="lane-card">
   <div class="lane-header">
@@ -785,22 +1296,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Savannah</div><div class="locode">USSAV</div></div>
     </div>
   </div>
-  <!-- Cai Mep → SAV: ONE(39), Hapag(40,44), MSC(37,38), Evergreen(40,41), Matson(46) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USSAV" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">EMERALD</td><td class="dep">&mdash;</td><td class="days">37</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; INDUS</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">EC2</td><td class="dep">Tue</td><td class="days">39</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">716/US4 &rarr; AL7</td><td class="dep">Sun</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">PVCS/SCS &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">40</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">PVCS/SEA &rarr; AUE/AWE3</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">7</td><td class="svc">AA7</td><td class="dep">Wed</td><td class="days">44</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">8</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">46</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → SAV: ONE(30), Hapag(31), Maersk(31,33), Evergreen(31,32), MSC(32,34), Matson(37,37) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USSAV" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -819,6 +1314,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Houston -->
 <div class="lane-card">
   <div class="lane-header">
@@ -827,20 +1323,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Houston</div><div class="locode">USHOU</div></div>
     </div>
   </div>
-  <!-- Cai Mep → HOU: ONE(34), Hapag(42), Evergreen(35,36), MSC(38,41) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USHOU" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">MP2/MS2 &rarr; EC4</td><td class="dep">Fri</td><td class="days">34</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNSHG</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">PVCS/SCS &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">35</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">PVCS/SEA &rarr; GCC2/GME</td><td class="dep">&mdash;</td><td class="days">36</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">GRIFFIN &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">38</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">EMERALD &rarr; LONE</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">706/WC1 &rarr; 715/US3</td><td class="dep">Fri</td><td class="days">42</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USLAX</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → HOU: ONE(27), Hapag(33), MSC(27,29), Evergreen(30,30), Matson(33,33), Maersk(33,33) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USHOU" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -859,6 +1341,7 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 <!-- Miami -->
 <div class="lane-card">
   <div class="lane-header">
@@ -867,22 +1350,6 @@ td.carrier-col { width: 62px; }
       <div><div class="lane-name">Miami</div><div class="locode">USMIA</div></div>
     </div>
   </div>
-  <!-- Cai Mep → MIA: Hapag(44), ONE(45), MSC(41,43), Matson(45,49), Evergreen(57,58) -->
-  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USMIA" target="_blank">Atlas &#x2197;</a></div>
-  <table>
-    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
-    <tbody>
-      <tr><td class="rank">1</td><td class="svc">EMERALD &rarr; MEDGULF</td><td class="dep">&mdash;</td><td class="days">41</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">2</td><td class="svc">AMERICA &rarr; EMPIRE</td><td class="dep">&mdash;</td><td class="days">43</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
-      <tr><td class="rank">3</td><td class="svc">US4 &rarr; AL6</td><td class="dep">Sun</td><td class="days">44</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
-      <tr><td class="rank">4</td><td class="svc">EC2 &rarr; AL6</td><td class="dep">Tue</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
-      <tr><td class="rank">5</td><td class="svc">EC2 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">45</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USSAV</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-      <tr><td class="rank">6</td><td class="svc">EC3 &rarr; AL6/AT4</td><td class="dep">Thu</td><td class="days">49</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">USNYC</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
-      <tr><td class="rank">7</td><td class="svc">PVCS/SCS &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">57</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-      <tr><td class="rank">8</td><td class="svc">PVCS/SEA &rarr; AWE7/CBX</td><td class="dep">&mdash;</td><td class="days">58</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNYTN</span></td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
-    </tbody>
-  </table>
-  <!-- Shanghai → MIA: Hapag(34), ONE(34,36), Maersk(34,35), Matson(36), MSC(36,37), Evergreen(38,41) -->
   <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USMIA" target="_blank">Atlas &#x2197;</a></div>
   <table>
     <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
@@ -901,15 +1368,46 @@ td.carrier-col { width: 62px; }
   </table>
 </div>
 
+
 </div><!-- /lanes -->
+
+</div>
+
 
 </div><!-- /container -->
 
 <div class="footer">
   <span class="footer-brand">flexport</span>
   Compiled from <a href="https://atlas.flexport.com" target="_blank">Flexport Atlas</a> &middot; April 2026<br>
-  Transit times are carrier-published estimates &middot; Departure days are approximate weekly schedules
+  Transit times are carrier-published estimates &middot; Departure days are approximate weekly schedules<br>
+  HCMC (VNSGN) routes reflect barge/feeder transfer via Cai Mep (VNCMT) for transpacific mother vessels &middot; Add ~1 day for the barge leg
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tab');
+      buttons.forEach(b => b.classList.toggle('active', b === btn));
+      panels.forEach(p => {
+        if (p.id === 'panel-' + target) p.removeAttribute('hidden');
+        else p.setAttribute('hidden', '');
+      });
+      // Update URL hash for deep-linking
+      history.replaceState(null, '', '#' + target);
+    });
+  });
+  // Respect initial hash
+  const hash = window.location.hash.replace('#', '');
+  if (hash && ['hcm', 'cmt', 'sha'].includes(hash)) {
+    const btn = document.querySelector('.tab-btn[data-tab="' + hash + '"]');
+    if (btn) btn.click();
+  }
+});
+</script>
 
 </body>
 </html>

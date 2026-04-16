@@ -53,15 +53,13 @@ body {
 .header-logo {
   display: inline-block;
   margin-bottom: 28px;
-  color: var(--white);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 800;
-  font-size: 34px;
-  letter-spacing: -1.4px;
-  line-height: 1;
-  text-decoration: none;
+  line-height: 0;
 }
-.header-logo:hover { text-decoration: none; color: var(--white); }
+.header-logo img {
+  display: block;
+  height: 32px;
+  width: auto;
+}
 .header-inner {
   max-width: 1400px;
   margin: 0 auto;
@@ -507,7 +505,9 @@ td.carrier-col { width: 62px; }
 <div class="accent-stripe"></div>
 
 <div class="header">
-  <a class="header-logo" href="https://www.flexport.com" target="_blank" rel="noopener" aria-label="Flexport">flexport</a>
+  <a class="header-logo" href="https://www.flexport.com" target="_blank" rel="noopener" aria-label="Flexport">
+    <img src="flexport-logo.png" alt="Flexport">
+  </a>
   <div class="header-inner">
     <div>
       <h1>Inhabitr Ocean<br>Sailing Schedules</h1>

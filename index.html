@@ -447,7 +447,7 @@ td.carrier-col { width: 62px; }
 <div class="stats-bar">
   <div class="stat"><span class="stat-num">2</span><span class="stat-label">Origins</span></div>
   <div class="stats-divider"></div>
-  <div class="stat"><span class="stat-num">9</span><span class="stat-label">Destinations</span></div>
+  <div class="stat"><span class="stat-num">10</span><span class="stat-label">Destinations</span></div>
   <div class="stats-divider"></div>
   <div class="stat"><span class="stat-num">7</span><span class="stat-label">Carriers</span></div>
 </div>
@@ -517,6 +517,43 @@ td.carrier-col { width: 62px; }
       <tr><td class="rank">11</td><td class="svc">GS2/KMP &rarr; PS4</td><td class="dep">Thu</td><td class="days">19</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNNGB</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
       <tr><td class="rank">12</td><td class="svc">CTI &rarr; PS4</td><td class="dep">Thu</td><td class="days">19</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">CNNGB</span></td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
       <tr><td class="rank">13</td><td class="svc">SANTANA &rarr; ORIENT</td><td class="dep">Fri</td><td class="days">19</td><td><span class="badge transfer">1 T/S</span></td><td class="via"><span class="via-tag">KRPUS</span></td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Oakland -->
+<div class="lane-card">
+  <div class="lane-header">
+    <div class="lane-title">
+      <span class="flag">&#x1F1FA;&#x1F1F8;</span>
+      <div><div class="lane-name">Oakland</div><div class="locode">USOAK</div></div>
+    </div>
+  </div>
+  <!-- Cai Mep → OAK: ONE(22,24), CMA(24), Evergreen(24,24), MSC(26) sorted by transit -->
+  <div class="pol-header"><span>&#x1F1FB;&#x1F1F3; Cai Mep (VNCMT)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:VNCMT/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">PS7</td><td class="dep">&mdash;</td><td class="days">22</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">PS3</td><td class="dep">Fri</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">Columbus JAX</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag cma">CMA</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">HTW</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">PE1</td><td class="dep">&mdash;</td><td class="days">24</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">SENTOSA</td><td class="dep">&mdash;</td><td class="days">26</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+    </tbody>
+  </table>
+  <!-- Shanghai → OAK: CMA(12), Hapag(17), Maersk(17), Evergreen(17), MSC(19), ONE(19,21) sorted by transit -->
+  <div class="pol-header"><span>&#x1F1E8;&#x1F1F3; Shanghai (CNSHG)</span><a class="pol-atlas" href="https://atlas.flexport.com/route/originoceanport:CNSHG/destinationoceanport:USOAK" target="_blank">Atlas &#x2197;</a></div>
+  <table>
+    <thead><tr><th>#</th><th>Service</th><th>Dep</th><th>Days</th><th>Type</th><th>Via</th><th>Carrier</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="svc">EXX</td><td class="dep">&mdash;</td><td class="days">12</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag cma">CMA</span></td></tr>
+      <tr><td class="rank">2</td><td class="svc">708/WC2</td><td class="dep">Mon</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag hapag">Hapag</span></td></tr>
+      <tr><td class="rank">3</td><td class="svc">708/WC2</td><td class="dep">Mon</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag maersk">Maersk</span></td></tr>
+      <tr><td class="rank">4</td><td class="svc">AAC2/CPS</td><td class="dep">Mon</td><td class="days">17</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag evg">Evergreen</span></td></tr>
+      <tr><td class="rank">5</td><td class="svc">ORIENT</td><td class="dep">Mon</td><td class="days">19</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag msc">MSC</span></td></tr>
+      <tr><td class="rank">6</td><td class="svc">PS6</td><td class="dep">Wed</td><td class="days">19</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag one">ONE</span></td></tr>
+      <tr><td class="rank">7</td><td class="svc">GS2/KMP</td><td class="dep">Thu</td><td class="days">21</td><td><span class="badge direct">Direct</span></td><td class="via">&mdash;</td><td class="carrier-col"><span class="carrier-tag matson">Matson</span></td></tr>
     </tbody>
   </table>
 </div>
